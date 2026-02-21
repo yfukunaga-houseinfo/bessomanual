@@ -255,83 +255,140 @@
       color: #666;
       cursor: pointer;
     }
+
+    /* -------------------------------------------
+       パスワード画面のスタイル
+       ------------------------------------------- */
+    #password-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fdfdfd;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #password-screen h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    #password-screen input {
+      font-size: 20px;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 80%;
+      max-width: 250px;
+      text-align: center;
+      letter-spacing: 4px;
+    }
+    #password-screen button {
+      font-size: 18px;
+      padding: 12px 40px;
+      background: #e8412e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <!-- 目次を開くボタン -->
-  <button id="toc-button">☰ 目次</button>
-
-  <!-- 目次メニュー本体 -->
-  <div id="toc-menu">
-    <button id="toc-close">×</button>
-    <h2>マニュアル目次</h2>
-    <ul id="toc-list"></ul>
+  <!-- パスワード画面 -->
+  <div id="password-screen">
+    <h2>マニュアルの閲覧</h2>
+    <p style="margin-bottom: 20px; font-size: 14px; color: #666;">パスワードを入力してください</p>
+    <!-- スマホで数字キーボードが出やすいように type="tel" に設定 -->
+    <input type="tel" id="password-input" placeholder="パスワード" maxlength="4">
+    <button id="password-submit">確認</button>
+    <p id="password-error" style="color: red; display: none; margin-top: 15px; font-size: 14px;">パスワードが間違っています</p>
   </div>
 
-  <div class="reveal">
-    <div class="slides">
+  <!-- メインコンテンツ (初期状態は非表示) -->
+  <div id="main-content" style="display: none; height: 100%;">
+    <!-- 目次を開くボタン -->
+    <button id="toc-button">☰ 目次</button>
 
-      <!-- スライド 1: タイトル -->
-      <section>
-        <div class="slide-wrapper center-content">
-          <h2>Besso姫路お掃除マニュアル</h2>
-        </div>
-      </section>
+    <!-- 目次メニュー本体 -->
+    <div id="toc-menu">
+      <button id="toc-close">×</button>
+      <h2>マニュアル目次</h2>
+      <ul id="toc-list"></ul>
+    </div>
 
-      <!-- スライド 2: 目次 -->
-      <section>
-        <div class="slide-wrapper">
-          <h3>マニュアル目次</h3>
-          <p style="font-size: 13px; color: #666; margin-bottom: 10px; text-align: left;">※タップすると各項目へジャンプします</p>
-          <div class="toc-grid">
-            <a href="javascript:void(0);" onclick="Reveal.slide(2);">1. 入室時の確認とカギ</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(10);">2. 掃除道具と備品の場所</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(14);">3. ベッドメイキング・寝室</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(31);">4. キッチン周り・食器・備品</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(44);">5. リビング・洗面所・お風呂</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(55);">6. 各エリアのチェックリスト</a>
-            <a href="javascript:void(0);" onclick="Reveal.slide(62);">7. 退室前の確認・前日準備</a>
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- スライド 1: タイトル -->
+        <section>
+          <div class="slide-wrapper center-content">
+            <h2>Besso姫路お掃除マニュアル</h2>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- スライド 3 -->
-      <section>
-        <div class="slide-wrapper">
-          <h3>入室時</h3>
-          <div class="slide-content">
-            <div class="slide-image">
-              <img src="images/slide-02.jpg" alt="入室時">
-            </div>
-            <div class="slide-text">
-              <p>扉にカギが設置されています</p>
-              <p>真っ黒な画面に手のひらをかざすと数字が出てきます</p>
-              <p>「<strong>5963※</strong>」と押すと扉が開きます</p>
-              <p class="highlight">注意：数字を押して「ピッ」と鳴らなければ反応していません</p>
-              <p>途中間違った場合は右端の「🏠」のマークを押すとリセットになります。始めからやりなおしてください。</p>
+        <!-- スライド 2: 目次 -->
+        <section>
+          <div class="slide-wrapper">
+            <h3>マニュアル目次</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 10px; text-align: left;">※タップすると各項目へジャンプします</p>
+            <div class="toc-grid">
+              <a href="javascript:void(0);" onclick="Reveal.slide(2);">1. 入室時の確認とカギ</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(10);">2. 掃除道具と備品の場所</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(14);">3. ベッドメイキング・寝室</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(31);">4. キッチン周り・食器・備品</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(44);">5. リビング・洗面所・お風呂</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(55);">6. 各エリアのチェックリスト</a>
+              <a href="javascript:void(0);" onclick="Reveal.slide(62);">7. 退室前の確認・前日準備</a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- スライド 4 -->
-      <section>
-        <div class="slide-wrapper">
-          <h3>入る前にドアホンで確認</h3>
-          <div class="slide-content">
-            <div class="slide-image">
-              <img src="images/slide-03.jpg" alt="入る前にドアホンで確認">
-            </div>
-            <div class="slide-text small-text">
-              <p><strong>11時チェックアウトですが</strong><br>無人案内ということもあり、まだお客様がいらっしゃる可能性があります。</p>
-              <p><strong>必ず、入る前にドアホン（四角い黒い方）で「ピンポン」でお客様が帰られた事を確認してから入ってください。</strong></p>
-              <p class="highlight">※もし、お客様がいらっしゃっても落ち着いて</p>
-              <p>「お掃除に来ました。11時がチェックアウトですので、チェックアウトお願いします。」と伝えて外で待機してください。</p>
-              <p>こちらが誤る（謝る）必要はありません。</p>
+        <!-- スライド 3 -->
+        <section>
+          <div class="slide-wrapper">
+            <h3>入室時</h3>
+            <div class="slide-content">
+              <div class="slide-image">
+                <img src="images/slide-02.jpg" alt="入室時">
+              </div>
+              <div class="slide-text">
+                <p>扉にカギが設置されています</p>
+                <p>真っ黒な画面に手のひらをかざすと数字が出てきます</p>
+                <p>「<strong>5963※</strong>」と押すと扉が開きます</p>
+                <p class="highlight">注意：数字を押して「ピッ」と鳴らなければ反応していません</p>
+                <p>途中間違った場合は右端の「🏠」のマークを押すとリセットになります。始めからやりなおしてください。</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- スライド 4 -->
+        <section>
+          <div class="slide-wrapper">
+            <h3>入る前にドアホンで確認</h3>
+            <div class="slide-content">
+              <div class="slide-image">
+                <img src="images/slide-03.jpg" alt="入る前にドアホンで確認">
+              </div>
+              <div class="slide-text small-text">
+                <p><strong>11時チェックアウトですが</strong><br>無人案内ということもあり、まだお客様がいらっしゃる可能性があります。</p>
+                <p><strong>必ず、入る前にドアホン（四角い黒い方）で「ピンポン」でお客様が帰られた事を確認してから入ってください。</strong></p>
+                <p class="highlight">※もし、お客様がいらっしゃっても落ち着いて</p>
+                <p>「お掃除に来ました。11時がチェックアウトですので、チェックアウトお願いします。」と伝えて外で待機してください。</p>
+                <p>こちらが誤る（謝る）必要はありません。</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
       <!-- スライド 5 -->
       <section>
@@ -1342,23 +1399,55 @@
 
     </div>
   </div>
+  </div> <!-- main-contentの閉じタグ -->
 
   <!-- Reveal.js JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
   <script>
-    Reveal.initialize({
-      hash: false,
-      slideNumber: 'c/t',
-      width: "100%",
-      height: "100%",
-      margin: 0,
-      minScale: 1,
-      maxScale: 1,
-      center: false // trueにすると文字の開始位置がずれるためfalseに設定
+    // パスワード設定
+    const CORRECT_PASS = "5963";
+
+    // ページ更新時に再入力を省くためのセッション確認
+    if (sessionStorage.getItem("besso_auth") === "true") {
+      showManual();
+    }
+
+    // 「確認」ボタンが押されたときの処理
+    document.getElementById("password-submit").addEventListener("click", checkPassword);
+    
+    // スマホのキーボードで「確定(Enter)」を押したときの処理
+    document.getElementById("password-input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") checkPassword();
     });
 
-    // 目次を自動生成し、クリックで該当スライドへ移動する処理
-    Reveal.on('ready', event => {
+    function checkPassword() {
+      const input = document.getElementById("password-input").value;
+      if (input === CORRECT_PASS) {
+        sessionStorage.setItem("besso_auth", "true"); // 認証状態を保存
+        showManual();
+      } else {
+        document.getElementById("password-error").style.display = "block";
+      }
+    }
+
+    function showManual() {
+      // パスワード画面を隠してメインコンテンツを表示
+      document.getElementById("password-screen").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+
+      // コンテンツ表示後にReveal.jsを初期化
+      Reveal.initialize({
+        hash: false,
+        slideNumber: 'c/t',
+        width: "100%",
+        height: "100%",
+        margin: 0,
+        minScale: 1,
+        maxScale: 1,
+        center: false // trueにすると文字の開始位置がずれるためfalseに設定
+      });
+
+      // 目次を自動生成し、クリックで該当スライドへ移動する処理
       const tocList = document.getElementById('toc-list');
       const sections = document.querySelectorAll('.reveal .slides > section');
       
@@ -1391,7 +1480,7 @@
       document.getElementById('toc-close').addEventListener('click', () => {
         document.getElementById('toc-menu').classList.remove('open');
       });
-    });
+    }
   </script>
 </body>
 </html>
