@@ -11,137 +11,137 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/simple.min.css" id="theme">
   
   <style>
-    /* スライド用のカスタムスタイル */
+    /* -------------------------------------------
+       基本リセットとレスポンシブ設定
+       ------------------------------------------- */
+    /* Reveal.jsのデフォルトの中央揃えを上書きし、全画面でスクロール可能にする */
+    .reveal .slides section,
+    .reveal .slides section.present {
+      height: 100%;
+      top: 0 !important;
+    }
+
+    .slide-wrapper {
+      width: 100%;
+      height: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 70px 20px 40px; /* 上: 目次ボタン回避、下: ページ番号回避 */
+      box-sizing: border-box;
+      overflow-y: auto; /* はみ出した場合に縦スクロール可能にする */
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* デフォルトは上から詰めて表示 */
+    }
+
+    /* タイトル画面などを中央揃えにするためのクラス */
+    .slide-wrapper.center-content {
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* -------------------------------------------
+       フォントサイズ（スマホ向けベース）
+       文字が大きすぎないように px 指定で調整
+       ------------------------------------------- */
     .reveal h2 {
-      font-size: 2em;
+      font-size: 28px;
       font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      text-transform: none;
     }
     .reveal h3 {
-      font-size: 1.5em;
+      font-size: 22px;
       border-bottom: 2px solid #333;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      line-height: 1.4;
       text-transform: none;
     }
 
-    /* === レスポンシブレイアウトの基本設定 === */
-    .slide-wrapper {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
-
-    /* 【スマホ向け（基本）】縦並びレイアウト */
     .reveal .slide-content {
       display: flex;
-      flex-direction: column; /* 縦に並べる */
+      flex-direction: column; /* スマホは縦並び */
       align-items: center;
-      gap: 20px;
+      gap: 15px;
+      width: 100%;
     }
+
     .reveal .slide-image {
       width: 100%;
       text-align: center;
     }
     .reveal .slide-image img {
-      max-height: 40vh; /* スマホ画面の高さの40%を最大値に */
+      max-height: 35vh; /* 画像が大きくなりすぎないように制限 */
       max-width: 100%;
       object-fit: contain;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 0 auto;
     }
+
     .reveal .slide-text {
       width: 100%;
       text-align: left;
-      font-size: 1.2rem;
+      font-size: 15px;
       line-height: 1.6;
     }
     .reveal .slide-text.small-text {
-      font-size: 1rem;
+      font-size: 13px;
     }
     .reveal .slide-text p {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
+
     .reveal ul.check-list {
       text-align: left;
-      font-size: 1.2rem;
+      font-size: 15px;
       line-height: 1.6;
       display: block;
       padding-left: 1.5em;
     }
     .reveal ul.check-list.small-text {
-      font-size: 1rem;
+      font-size: 13px;
     }
     .reveal ul.check-list li {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
+
     .highlight {
       color: #e8412e;
       font-weight: bold;
     }
 
-    /* 【PC・タブレット向け】画面幅が768px以上の場合に適用 */
-    @media (min-width: 768px) {
-      .reveal .slide-content {
-        flex-direction: row; /* 横並びに変更 */
-        align-items: flex-start;
-        gap: 40px;
-      }
-      .reveal .slide-image {
-        flex: 1.2; /* 画像側の幅の割合 */
-      }
-      .reveal .slide-image img {
-        max-height: 60vh; /* PCでは画像を大きく */
-      }
-      .reveal .slide-text {
-        flex: 1; /* テキスト側の幅の割合 */
-        font-size: 1.5rem; /* PCでは文字を少し大きく */
-      }
-      .reveal .slide-text.small-text {
-        font-size: 1.2rem;
-      }
-      .reveal ul.check-list {
-        font-size: 1.5rem;
-      }
-      .reveal ul.check-list.small-text {
-        font-size: 1.2rem;
-      }
-    }
-
     .footer-note {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
       color: #666;
+      margin-top: 20px;
     }
 
-    /* === 目次スライド用のスタイル === */
+    /* -------------------------------------------
+       目次スライド用のスタイル
+       ------------------------------------------- */
     .toc-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 15px;
       text-align: left;
-    }
-    @media (min-width: 768px) {
-      .toc-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
+      width: 100%;
     }
     .toc-grid a {
       display: block;
-      padding: 15px 20px;
+      padding: 12px 15px;
       background: #f9f9f9;
       border-radius: 8px;
       border-left: 6px solid #e8412e;
       color: #333 !important;
       text-decoration: none;
-      font-size: 1.2rem;
+      font-size: 14px;
       font-weight: bold;
       transition: all 0.3s;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -150,10 +150,43 @@
       background: #e8412e;
       border-left-color: #b52b1b;
       color: #fff !important;
-      transform: translateY(-2px);
     }
 
-    /* === 目次（ハンバーガーメニュー）のスタイル === */
+    /* -------------------------------------------
+       PC・タブレット向け (768px以上)
+       ------------------------------------------- */
+    @media (min-width: 768px) {
+      .slide-wrapper {
+        padding: 80px 40px 60px;
+      }
+      .reveal h2 { font-size: 40px; }
+      .reveal h3 { font-size: 32px; margin-bottom: 25px; }
+      
+      .reveal .slide-content {
+        flex-direction: row; /* 横並び */
+        align-items: flex-start;
+        gap: 30px;
+      }
+      .reveal .slide-image { flex: 1.2; }
+      .reveal .slide-image img { max-height: 50vh; }
+      
+      .reveal .slide-text { flex: 1; font-size: 18px; }
+      .reveal .slide-text.small-text { font-size: 15px; }
+      
+      .reveal ul.check-list { font-size: 18px; }
+      .reveal ul.check-list.small-text { font-size: 15px; }
+
+      .toc-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .toc-grid a { font-size: 16px; padding: 15px 20px; }
+      .footer-note { font-size: 16px; }
+    }
+
+    /* -------------------------------------------
+       ハンバーガーメニュー（目次ボタン）のスタイル
+       ------------------------------------------- */
     #toc-button {
       position: fixed;
       top: 15px;
@@ -164,7 +197,7 @@
       border: none;
       border-radius: 8px;
       padding: 10px 15px;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
@@ -188,7 +221,7 @@
       right: 0;
     }
     #toc-menu h2 {
-      font-size: 1.5em;
+      font-size: 20px;
       margin-top: 0;
       border-bottom: 2px solid #e8412e;
       padding-bottom: 10px;
@@ -206,7 +239,7 @@
     #toc-menu li a {
       text-decoration: none;
       color: #333;
-      font-size: 16px;
+      font-size: 15px;
       display: block;
     }
     #toc-menu li a:hover {
@@ -216,7 +249,7 @@
       position: absolute;
       top: 15px;
       right: 20px;
-      font-size: 30px;
+      font-size: 28px;
       background: none;
       border: none;
       color: #666;
@@ -240,16 +273,16 @@
 
       <!-- スライド 1: タイトル -->
       <section>
-        <div class="slide-wrapper">
+        <div class="slide-wrapper center-content">
           <h2>Besso姫路お掃除マニュアル</h2>
         </div>
       </section>
 
-      <!-- スライド 2: 目次（新設） -->
+      <!-- スライド 2: 目次 -->
       <section>
         <div class="slide-wrapper">
           <h3>マニュアル目次</h3>
-          <p style="font-size: 1rem; color: #666; margin-bottom: 20px; text-align: left;">※タップすると各項目へジャンプします（右上の「☰ 目次」からも全ページ移動可能です）</p>
+          <p style="font-size: 13px; color: #666; margin-bottom: 10px; text-align: left;">※タップすると各項目へジャンプします</p>
           <div class="toc-grid">
             <a href="#" onclick="Reveal.slide(2); return false;">1. 入室時の確認とカギ</a>
             <a href="#" onclick="Reveal.slide(10); return false;">2. 掃除道具と備品の場所</a>
@@ -281,7 +314,7 @@
         </div>
       </section>
 
-      <!-- スライド 3 -->
+      <!-- スライド 4 -->
       <section>
         <div class="slide-wrapper">
           <h3>入る前にドアホンで確認</h3>
@@ -300,7 +333,7 @@
         </div>
       </section>
 
-      <!-- スライド 4 -->
+      <!-- スライド 5 -->
       <section>
         <div class="slide-wrapper">
           <h3>物入のカギの場所</h3>
@@ -316,7 +349,7 @@
         </div>
       </section>
 
-      <!-- スライド 5 -->
+      <!-- スライド 6 -->
       <section>
         <div class="slide-wrapper">
           <h3>①のカギの置き場所</h3>
@@ -333,7 +366,7 @@
         </div>
       </section>
 
-      <!-- スライド 6 -->
+      <!-- スライド 7 -->
       <section>
         <div class="slide-wrapper">
           <h3>まず、①の1つ目のカギを発見したら</h3>
@@ -348,7 +381,7 @@
         </div>
       </section>
 
-      <!-- スライド 7 -->
+      <!-- スライド 8 -->
       <section>
         <div class="slide-wrapper">
           <h3>下駄箱の開け方</h3>
@@ -365,7 +398,7 @@
         </div>
       </section>
 
-      <!-- スライド 8 -->
+      <!-- スライド 9 -->
       <section>
         <div class="slide-wrapper">
           <h3>カギ付きの下駄箱の中</h3>
@@ -382,7 +415,7 @@
         </div>
       </section>
 
-      <!-- スライド 9 -->
+      <!-- スライド 10 -->
       <section>
         <div class="slide-wrapper">
           <h3>カギの場所</h3>
@@ -399,7 +432,7 @@
         </div>
       </section>
 
-      <!-- スライド 10 -->
+      <!-- スライド 11 -->
       <section>
         <div class="slide-wrapper">
           <h3>掃除道具入れ</h3>
@@ -414,7 +447,7 @@
         </div>
       </section>
 
-      <!-- スライド 11 -->
+      <!-- スライド 12 -->
       <section>
         <div class="slide-wrapper">
           <h3>掃除道具カゴの中の備品（1）</h3>
@@ -440,7 +473,7 @@
         </div>
       </section>
 
-      <!-- スライド 12 -->
+      <!-- スライド 13 -->
       <section>
         <div class="slide-wrapper">
           <h3>掃除道具カゴの中の備品（2）</h3>
@@ -468,7 +501,7 @@
         </div>
       </section>
 
-      <!-- スライド 13 -->
+      <!-- スライド 14 -->
       <section>
         <div class="slide-wrapper">
           <h3>2人宿泊の場合</h3>
@@ -484,7 +517,7 @@
         </div>
       </section>
 
-      <!-- スライド 14 -->
+      <!-- スライド 15 -->
       <section>
         <div class="slide-wrapper">
           <h3>ベッドメイキング</h3>
@@ -502,7 +535,7 @@
         </div>
       </section>
 
-      <!-- スライド 15 -->
+      <!-- スライド 16 -->
       <section>
         <div class="slide-wrapper">
           <h3>掛布団のシーツの向き（1）</h3>
@@ -518,7 +551,7 @@
         </div>
       </section>
 
-      <!-- スライド 16 -->
+      <!-- スライド 17 -->
       <section>
         <div class="slide-wrapper">
           <h3>掛布団のシーツの向き（2）</h3>
@@ -533,7 +566,7 @@
         </div>
       </section>
 
-      <!-- スライド 17 -->
+      <!-- スライド 18 -->
       <section>
         <div class="slide-wrapper">
           <h3>枕の置き方</h3>
@@ -550,7 +583,7 @@
         </div>
       </section>
 
-      <!-- スライド 18 -->
+      <!-- スライド 19 -->
       <section>
         <div class="slide-wrapper">
           <h3>ベッドメイキング完成図</h3>
@@ -565,7 +598,7 @@
         </div>
       </section>
 
-      <!-- スライド 19 -->
+      <!-- スライド 20 -->
       <section>
         <div class="slide-wrapper">
           <h3>奥のベッドルームの物入れ</h3>
@@ -581,7 +614,7 @@
         </div>
       </section>
 
-      <!-- スライド 20 -->
+      <!-- スライド 21 -->
       <section>
         <div class="slide-wrapper">
           <h3>ティッシュの置き場所</h3>
@@ -597,7 +630,7 @@
         </div>
       </section>
 
-      <!-- スライド 21 -->
+      <!-- スライド 22 -->
       <section>
         <div class="slide-wrapper">
           <h3>寝室のごみ箱（2ベッドの時）</h3>
@@ -613,7 +646,7 @@
         </div>
       </section>
 
-      <!-- スライド 22 -->
+      <!-- スライド 23 -->
       <section>
         <div class="slide-wrapper">
           <h3>寝室のごみ箱（3ベッドの時）</h3>
@@ -631,7 +664,7 @@
         </div>
       </section>
 
-      <!-- スライド 23 -->
+      <!-- スライド 24 -->
       <section>
         <div class="slide-wrapper">
           <h3>バスタオルの向き</h3>
@@ -648,7 +681,7 @@
         </div>
       </section>
 
-      <!-- スライド 24 -->
+      <!-- スライド 25 -->
       <section>
         <div class="slide-wrapper">
           <h3>ガウンの確認</h3>
@@ -664,7 +697,7 @@
         </div>
       </section>
 
-      <!-- スライド 25 -->
+      <!-- スライド 26 -->
       <section>
         <div class="slide-wrapper">
           <h3>ガウンのチェック</h3>
@@ -680,7 +713,7 @@
         </div>
       </section>
 
-      <!-- スライド 26 -->
+      <!-- スライド 27 -->
       <section>
         <div class="slide-wrapper">
           <h3>5人宿泊の場合のベッドセッティング</h3>
@@ -697,7 +730,7 @@
         </div>
       </section>
 
-      <!-- スライド 27 -->
+      <!-- スライド 28 -->
       <section>
         <div class="slide-wrapper">
           <h3>2人、3人宿泊の場合のベッドセッティング</h3>
@@ -713,7 +746,7 @@
         </div>
       </section>
 
-      <!-- スライド 28 -->
+      <!-- スライド 29 -->
       <section>
         <div class="slide-wrapper">
           <h3>使い捨てスリッパ</h3>
@@ -729,7 +762,7 @@
         </div>
       </section>
 
-      <!-- スライド 29 -->
+      <!-- スライド 30 -->
       <section>
         <div class="slide-wrapper">
           <h3>洗濯洗剤、柔軟剤</h3>
@@ -745,7 +778,7 @@
         </div>
       </section>
 
-      <!-- スライド 30 -->
+      <!-- スライド 31 -->
       <section>
         <div class="slide-wrapper">
           <h3>ドライヤー</h3>
@@ -761,7 +794,7 @@
         </div>
       </section>
 
-      <!-- スライド 31 -->
+      <!-- スライド 32 -->
       <section>
         <div class="slide-wrapper">
           <h3>冷蔵庫の確認</h3>
@@ -778,7 +811,7 @@
         </div>
       </section>
 
-      <!-- スライド 32 -->
+      <!-- スライド 33 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチンの流しの下引き出し</h3>
@@ -798,7 +831,7 @@
         </div>
       </section>
 
-      <!-- スライド 33 -->
+      <!-- スライド 34 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 右1段目</h3>
@@ -819,7 +852,7 @@
         </div>
       </section>
 
-      <!-- スライド 34 -->
+      <!-- スライド 35 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 右2段目</h3>
@@ -838,7 +871,7 @@
         </div>
       </section>
 
-      <!-- スライド 35 -->
+      <!-- スライド 36 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 右3段目</h3>
@@ -854,7 +887,7 @@
         </div>
       </section>
 
-      <!-- スライド 36 -->
+      <!-- スライド 37 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 左1段目</h3>
@@ -870,7 +903,7 @@
         </div>
       </section>
 
-      <!-- スライド 37 -->
+      <!-- スライド 38 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 左2段目</h3>
@@ -886,7 +919,7 @@
         </div>
       </section>
 
-      <!-- スライド 38 -->
+      <!-- スライド 39 -->
       <section>
         <div class="slide-wrapper">
           <h3>キッチン壁側引き出し 左3段目</h3>
@@ -902,7 +935,7 @@
         </div>
       </section>
 
-      <!-- スライド 39 -->
+      <!-- スライド 40 -->
       <section>
         <div class="slide-wrapper">
           <h3>ホットプレートの中</h3>
@@ -920,7 +953,7 @@
         </div>
       </section>
 
-      <!-- スライド 40 -->
+      <!-- スライド 41 -->
       <section>
         <div class="slide-wrapper">
           <h3>コーヒーのセッティング</h3>
@@ -938,7 +971,7 @@
         </div>
       </section>
 
-      <!-- スライド 41 -->
+      <!-- スライド 42 -->
       <section>
         <div class="slide-wrapper">
           <h3>フィルターの用意</h3>
@@ -955,7 +988,7 @@
         </div>
       </section>
 
-      <!-- スライド 42 -->
+      <!-- スライド 43 -->
       <section>
         <div class="slide-wrapper">
           <h3>お茶のセットのセッティング</h3>
@@ -972,7 +1005,7 @@
         </div>
       </section>
 
-      <!-- スライド 43 -->
+      <!-- スライド 44 -->
       <section>
         <div class="slide-wrapper">
           <h3>使い捨てタオル キッチン用</h3>
@@ -988,7 +1021,7 @@
         </div>
       </section>
 
-      <!-- スライド 44 -->
+      <!-- スライド 45 -->
       <section>
         <div class="slide-wrapper">
           <h3>リビング</h3>
@@ -1006,7 +1039,7 @@
         </div>
       </section>
 
-      <!-- スライド 45 -->
+      <!-- スライド 46 -->
       <section>
         <div class="slide-wrapper">
           <h3>使い捨てタオル 2階トイレ用</h3>
@@ -1022,7 +1055,7 @@
         </div>
       </section>
 
-      <!-- スライド 46 -->
+      <!-- スライド 47 -->
       <section>
         <div class="slide-wrapper">
           <h3>お風呂の備品1</h3>
@@ -1040,7 +1073,7 @@
         </div>
       </section>
 
-      <!-- スライド 47 -->
+      <!-- スライド 48 -->
       <section>
         <div class="slide-wrapper">
           <h3>お風呂の排水口</h3>
@@ -1056,7 +1089,7 @@
         </div>
       </section>
 
-      <!-- スライド 48 -->
+      <!-- スライド 49 -->
       <section>
         <div class="slide-wrapper">
           <h3>お風呂排水口のネットの種類</h3>
@@ -1072,7 +1105,7 @@
         </div>
       </section>
 
-      <!-- スライド 49 -->
+      <!-- スライド 50 -->
       <section>
         <div class="slide-wrapper">
           <h3>バスタオル掛け バスマット</h3>
@@ -1089,7 +1122,7 @@
         </div>
       </section>
 
-      <!-- スライド 50 -->
+      <!-- スライド 51 -->
       <section>
         <div class="slide-wrapper">
           <h3>お風呂の備品2</h3>
@@ -1106,7 +1139,7 @@
         </div>
       </section>
 
-      <!-- スライド 51 -->
+      <!-- スライド 52 -->
       <section>
         <div class="slide-wrapper">
           <h3>ゴミ箱</h3>
@@ -1123,7 +1156,7 @@
         </div>
       </section>
 
-      <!-- スライド 52 -->
+      <!-- スライド 53 -->
       <section>
         <div class="slide-wrapper">
           <h3>トイレットペーパーにシールを貼る</h3>
@@ -1140,7 +1173,7 @@
         </div>
       </section>
 
-      <!-- スライド 53 -->
+      <!-- スライド 54 -->
       <section>
         <div class="slide-wrapper">
           <h3>予備のトイレットペーパーの設置の仕方</h3>
@@ -1156,7 +1189,7 @@
         </div>
       </section>
 
-      <!-- スライド 54 -->
+      <!-- スライド 55 -->
       <section>
         <div class="slide-wrapper">
           <h3>電気等を帰るときにチェック</h3>
@@ -1177,7 +1210,7 @@
         </div>
       </section>
 
-      <!-- スライド 55: チェックリスト キッチン -->
+      <!-- スライド 56: チェックリスト キッチン -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：キッチン</h3>
@@ -1194,7 +1227,7 @@
         </div>
       </section>
 
-      <!-- スライド 56: チェックリスト リビング -->
+      <!-- スライド 57: チェックリスト リビング -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：リビング</h3>
@@ -1210,7 +1243,7 @@
         </div>
       </section>
 
-      <!-- スライド 57: チェックリスト トイレ -->
+      <!-- スライド 58: チェックリスト トイレ -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：トイレ・洗面所</h3>
@@ -1226,7 +1259,7 @@
         </div>
       </section>
 
-      <!-- スライド 58: チェックリスト お風呂・脱衣場 -->
+      <!-- スライド 59: チェックリスト お風呂・脱衣場 -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：お風呂・脱衣場</h3>
@@ -1243,7 +1276,7 @@
         </div>
       </section>
 
-      <!-- スライド 59: チェックリスト 寝室 -->
+      <!-- スライド 60: チェックリスト 寝室 -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：寝室</h3>
@@ -1258,7 +1291,7 @@
         </div>
       </section>
 
-      <!-- スライド 60: チェックリスト 玄関外 -->
+      <!-- スライド 61: チェックリスト 玄関外 -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：玄関外</h3>
@@ -1269,7 +1302,7 @@
         </div>
       </section>
 
-      <!-- スライド 61: チェックリスト その他 -->
+      <!-- スライド 62: チェックリスト その他 -->
       <section>
         <div class="slide-wrapper">
           <h3>お掃除チェックリスト：その他</h3>
@@ -1284,7 +1317,7 @@
         </div>
       </section>
 
-      <!-- スライド 62: 宿泊者の前日に用意する事 -->
+      <!-- スライド 63: 宿泊者の前日に用意する事 -->
       <section>
         <div class="slide-wrapper">
           <h3>宿泊者の前日に用意する事</h3>
@@ -1299,9 +1332,9 @@
         </div>
       </section>
 
-      <!-- スライド 63: フッター -->
+      <!-- スライド 64: フッター -->
       <section>
-        <div class="slide-wrapper">
+        <div class="slide-wrapper center-content">
           <h2>お疲れ様でした！</h2>
           <div class="footer-note">Copyright 2023 fukunaga@himejistyle.jp</div>
         </div>
@@ -1316,13 +1349,12 @@
     Reveal.initialize({
       hash: false,
       slideNumber: 'c/t',
-      // レスポンシブにするためにスライドのサイズを100%に設定
       width: "100%",
       height: "100%",
       margin: 0,
       minScale: 1,
       maxScale: 1,
-      center: true
+      center: false // trueにすると文字の開始位置がずれるためfalseに設定
     });
 
     // 目次を自動生成し、クリックで該当スライドへ移動する処理
