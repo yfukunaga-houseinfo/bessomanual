@@ -284,13 +284,13 @@
           <h3>マニュアル目次</h3>
           <p style="font-size: 13px; color: #666; margin-bottom: 10px; text-align: left;">※タップすると各項目へジャンプします</p>
           <div class="toc-grid">
-            <a href="#" class="toc-link" data-slide="2">1. 入室時の確認とカギ</a>
-            <a href="#" class="toc-link" data-slide="10">2. 掃除道具と備品の場所</a>
-            <a href="#" class="toc-link" data-slide="14">3. ベッドメイキング・寝室</a>
-            <a href="#" class="toc-link" data-slide="31">4. キッチン周り・食器・備品</a>
-            <a href="#" class="toc-link" data-slide="44">5. リビング・洗面所・お風呂</a>
-            <a href="#" class="toc-link" data-slide="55">6. 各エリアのチェックリスト</a>
-            <a href="#" class="toc-link" data-slide="62">7. 退室前の確認・前日準備</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(2);">1. 入室時の確認とカギ</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(10);">2. 掃除道具と備品の場所</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(14);">3. ベッドメイキング・寝室</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(31);">4. キッチン周り・食器・備品</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(44);">5. リビング・洗面所・お風呂</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(55);">6. 各エリアのチェックリスト</a>
+            <a href="javascript:void(0);" onclick="Reveal.slide(62);">7. 退室前の確認・前日準備</a>
           </div>
         </div>
       </section>
@@ -1368,7 +1368,7 @@
         if (heading) {
           const li = document.createElement('li');
           const a = document.createElement('a');
-          a.href = '#';
+          a.href = 'javascript:void(0);';
           // スライド番号と見出しテキストを目次にする
           a.textContent = `${index + 1}. ${heading.textContent.replace('お掃除チェックリスト：', '')}`;
           
@@ -1390,15 +1390,6 @@
       });
       document.getElementById('toc-close').addEventListener('click', () => {
         document.getElementById('toc-menu').classList.remove('open');
-      });
-
-      // 2ページ目の目次リンクのクリックイベント
-      document.querySelectorAll('.toc-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const slideIndex = parseInt(link.getAttribute('data-slide'), 10);
-          Reveal.slide(slideIndex);
-        });
       });
     });
   </script>
